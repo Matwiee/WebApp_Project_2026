@@ -75,5 +75,12 @@ namespace Project_2026_MMP.Controllers
 
         }
 
+        public IActionResult ProductsByCetegoryPartial(int categoryId)
+        {
+            var products = ProductsRepository.GetProductsByCategoryId(categoryId);
+
+            return PartialView("_Products", products);
+        }
+
     }   
 }
