@@ -14,6 +14,8 @@ namespace Project_2026_MMP.Controllers
 
         public IActionResult Add()
         {
+            ViewBag.Action = "add";
+
             var productViewModel = new ProductViewModel
             {
                 Categories = CategoriesRepository.GetCategories()
@@ -30,12 +32,16 @@ namespace Project_2026_MMP.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
+
+            ViewBag.Action = "add";
             productViewModel.Categories = CategoriesRepository.GetCategories();
             return View(productViewModel);
         }
 
         public IActionResult Edit(int id)
         {
+            ViewBag.Action = "edit";
+
             var productViewModel = new ProductViewModel
             {
                 Product = ProductsRepository.GetProductById(id)??new Product(),
@@ -54,6 +60,8 @@ namespace Project_2026_MMP.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
+
+            ViewBag.Action = "edit";
             productViewModel.Categories = CategoriesRepository.GetCategories();
             return View(productViewModel);
         }

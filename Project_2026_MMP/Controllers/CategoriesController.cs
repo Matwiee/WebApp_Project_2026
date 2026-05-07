@@ -29,6 +29,8 @@ namespace Project_2026_MMP.Controllers
                 return RedirectToAction(nameof(Index));
             }
             
+
+            ViewBag.Action = "edit";
             return View(category);
         }
 
@@ -49,6 +51,8 @@ namespace Project_2026_MMP.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
+
+            ViewBag.Action = "add";
             return View(category);
         }
 
