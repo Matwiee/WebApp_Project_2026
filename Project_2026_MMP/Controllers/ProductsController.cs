@@ -65,5 +65,15 @@ namespace Project_2026_MMP.Controllers
             productViewModel.Categories = CategoriesRepository.GetCategories();
             return View(productViewModel);
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Delete(int id)
+        {
+            ProductsRepository.DeleteProduct(id);
+            return RedirectToAction(nameof(Index));
+
+        }
+
     }   
 }

@@ -55,7 +55,9 @@ namespace Project_2026_MMP.Controllers
             ViewBag.Action = "add";
             return View(category);
         }
-
+        
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Delete(int categoryId)
         {
             CategoriesRepository.DeleteCategory(categoryId);
