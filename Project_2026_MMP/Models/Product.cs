@@ -20,5 +20,6 @@ namespace Project_2026_MMP.Models
         [Range(0, int.MaxValue)]
         public double? Price { get; set; }
         
+        public Category? Category { get; set; }
     }
 }
