@@ -75,7 +75,7 @@ namespace Project_2026_MMP.Controllers
 
         }
 
-        public IActionResult ProductsByCetegoryPartial(int categoryId)
+        public IActionResult ProductsByCategoryPartial(int categoryId)
         {
             var products = ProductsRepository.GetProductsByCategoryId(categoryId);
 

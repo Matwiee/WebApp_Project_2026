@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Project_2026_MMP.Models;
+using Project_2026_MMP.ViewModels;
 
 namespace Project_2026_MMP.Controllers
 {
@@ -6,9 +8,9 @@ namespace Project_2026_MMP.Controllers
     {
         public IActionResult Index()
         {
-            var salesViewModel = new ViewModels.SalesViewModel
+            var salesViewModel = new SalesViewModel
             {
-                Categories = Models.CategoriesRepository.GetCategories()
+                Categories = CategoriesRepository.GetCategories()
             };
             return View(salesViewModel);
         }
