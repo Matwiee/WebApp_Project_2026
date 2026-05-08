@@ -1,3 +1,5 @@
 <Solution>
+  <Project Path="CoreBusiness/CoreBusiness.csproj" Id="f878687f-232d-44ab-bb6f-1f765ebe5b87" />
   <Project Path="Project_2026_MMP/Project_2026_MMP.csproj" Id="7b1e8e5a-ed4c-45c7-a1d8-a64a98d527d2" />
+  <Project Path="UseCases/UseCases.csproj" Id="d4e598b2-587f-417a-8513-ee60c511c273" />
 </Solution>
