@@ -22,6 +22,7 @@ namespace Project_2026_MMP.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Sell(SalesViewModel salesViewModel)
         {
             if (ModelState.IsValid)

@@ -24,6 +24,7 @@ namespace Project_2026_MMP.Controllers
             return View(productViewModel);
         }
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Add(ProductViewModel productViewModel)
         {
             if (ModelState.IsValid)
@@ -52,6 +53,7 @@ namespace Project_2026_MMP.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Edit(ProductViewModel productViewModel)
         {
             if (ModelState.IsValid)
