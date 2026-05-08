@@ -29,7 +29,7 @@
             @* Product List *@
         </div>
         <br />
-        <div>
+        <div id="productDetailPartial">
             @* Product Details *@
         </div>
         @* Sales form *@
@@ -46,6 +46,7 @@
             //Handle category selection
             $("#SelectedCategoryId").on("change", function () {
                 $("#productsPartial").load("/products/ProductsByCategoryPartial", { categoryId: $(this).val() });
+                $("#productDetailPartial").html("");
             })
 
             //Handle product selection
@@ -57,6 +58,7 @@
 
                 var productId = $(this).attr('product-id');
                 
+                $("#productDetailPartial").load("/sales/SellProductPartial", { productId: productId});
             });
         });
     </script>
