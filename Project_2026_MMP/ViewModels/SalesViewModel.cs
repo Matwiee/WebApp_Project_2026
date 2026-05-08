@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Project_2026_MMP.Models;
-using Project_2026_MMP.ViewModels;
+using Project_2026_MMP.ViewModels.Validations;      
 using System.ComponentModel.DataAnnotations;
+
+
 
 namespace Project_2026_MMP.ViewModels
 {
@@ -14,7 +16,7 @@ namespace Project_2026_MMP.ViewModels
 
         [Display(Name = "Quantity")]
         [Range(1, int.MaxValue)]
-
+        [SalesViewModel_EnsureProperQuantity]
         public int QuantityToSell { get; set; }
     }
 }
