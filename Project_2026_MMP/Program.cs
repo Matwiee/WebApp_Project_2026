@@ -1,6 +1,8 @@
 
 using CoreBusiness;
+using Microsoft.EntityFrameworkCore;
 using Plugins.DataStore.InMemory;
+using Plugins.DataStore.SQL;
 using UseCases;
 using UseCases.CategoriesUseCases;
 using UseCases.CategoriesUseCases.DataStorePluginInterfaces;
@@ -8,6 +10,11 @@ using UseCases.DataStorePluginInterfaces;
 using UseCases.ProductsUseCases;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddDbContext<MarketContext>(options =>
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("MarketManagment"));
+});
 
 builder.Services.AddControllersWithViews();
 
