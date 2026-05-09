@@ -1,5 +1,5 @@
 ﻿@using CoreBusiness
-@model SalesViewModel
+@model Project_2026_MMP.ViewModels.SalesViewModel
 
 @section title {
     <div class="row">
@@ -14,11 +14,11 @@
 <br />
 <div class="row">
     <div class="col-4">
-        <div class="text-danger" asp-validation-summary="All"></div>
+        <div class="text-danger" id="validationSummary"></div>
 
         <select asp-for="SelectedCategoryId" class="form-control">
-            <option>- Please Select -</option>
-            @if (Model.Categories != null && Model.Categories.Count() > 0)
+            <option value="">- Please Select -</option>
+            @if (Model.Categories != null && Model.Categories.Any())
             {
                 @foreach (var cat in Model.Categories)
                 {
@@ -27,13 +27,11 @@
             }
         </select>
         <br />
-        <div id="productsPartial">
-        </div>
+        <div id="productsPartial"></div>
         <br />
-        <div id="productDetailPartial">
-        </div>
+        <div id="productDetailPartial"></div>
 
-        <form method="post" asp-controller="sales" asp-action="sell" id="formSale">
+        <form method="post" asp-controller="sales" asp-action="sell" id="formSale" style="display:none;">
             <input asp-for="SelectedProductId" type="hidden" />
             <div class="form-group">
                 <label asp-for="QuantityToSell"></label>
@@ -55,16 +53,15 @@
 @section Scripts {
     <script>
         $(function () {
-            $("#formSale").hide();
             $("#QuantityToSell").val("");
 
-            var selectedCategoryId = $("#SelectedCategoryId").val();
-            if (selectedCategoryId > 0) {
-                loadProducts(selectedCategoryId);
-            }
-
             $("#SelectedCategoryId").on("change", function () {
-                loadProducts($(this).val());
+                var categoryId = $(this).val();
+                if (categoryId > 0) {
+                    $("#productsPartial").load("/sales/ProductsByCategoryPartial", { categoryId: categoryId });
+                    $("#productDetailPartial").html("");
+                    $("#formSale").hide();
+                }
             });
 
             $("#productsPartial").on('click', '.product-row', function () {
@@ -72,41 +69,36 @@
                 $(this).addClass('highlight');
 
                 var productId = $(this).attr('product-id');
-
-                $("#productDetailPartial").load("/sales/SellProductPartial", { productId: productId});
+                $("#productDetailPartial").load("/sales/SellProductPartial", { productId: productId });
 
                 if (productId > 0) {
                     $("#SelectedProductId").val(productId);
                     $("#formSale").show();
                 }
-                else {
-                    $("#SelectedProductId").val("");
-                    $("#formSale").hide();
-                }
             });
 
             $("#formSale").on("submit", function (e) {
                 e.preventDefault();
-
                 var form = $(this);
-                $.post(form.attr("action"), form.serialize(), function (data) {
 
-                    $("#transactionsPartial").load("/sales/GetTransactionsPartial?cashierName=Cashier1");
+                $.post(form.attr("action"), form.serialize())
+                    .done(function () {
+                        
+                        $("#transactionsPartial").load("/sales/GetTransactionsPartial?cashierName=Cashier1");
+                        var categoryId = $("#SelectedCategoryId").val();
+                        $("#productsPartial").load("/sales/ProductsByCategoryPartial", { categoryId: categoryId });
 
-                    var categoryId = $("#SelectedCategoryId").val();
-                    loadProducts(categoryId);
-
-                    $("#QuantityToSell").val("");
-                    $("#productDetailPartial").html("");
-                    form.hide();
-                });
+                        
+                        $("#QuantityToSell").val("");
+                        $("#productDetailPartial").html("");
+                        form.hide();
+                        $("#validationSummary").text("");
+                    })
+                    .fail(function (xhr) {
+                        
+                        $("#validationSummary").text(xhr.responseText);
+                    });
             });
         });
-
-        function loadProducts(categoryId) {
-            $("#productsPartial").load("/sales/ProductsByCategoryPartial", { categoryId: categoryId });
-            $("#productDetailPartial").html("");
-            $("#formSale").hide();
-        }
     </script>
 }

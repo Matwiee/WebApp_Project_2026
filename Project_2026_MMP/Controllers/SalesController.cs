@@ -8,7 +8,6 @@ using Project_2026_MMP.Models;
 
 namespace Project_2026_MMP.Controllers
 {
-    //[Authorize(Policy = "Cashiers")]
     public class SalesController : Controller
     {
         private readonly IViewCategoriesUseCase viewCategoriesUseCase;
@@ -48,24 +47,24 @@ namespace Project_2026_MMP.Controllers
         {
             if (ModelState.IsValid)
             {
-                // Sell the product
                 sellProductUseCase.Execute(
                     "Cashier1",
                     salesViewModel.SelectedProductId,
                     salesViewModel.QuantityToSell);
+
+                return Ok();
             }
 
-            var product = viewSelectedProductUseCase.Execute(salesViewModel.SelectedProductId);
-            salesViewModel.SelectedCategoryId = (product?.CategoryId == null) ? 0 : product.CategoryId.Value;
-            salesViewModel.Categories = viewCategoriesUseCase.Execute();
+            var errorMessage = ModelState.Values
+                                         .SelectMany(v => v.Errors)
+                                         .FirstOrDefault()?.ErrorMessage;
 
-            return View("Index", salesViewModel);
+            return BadRequest(errorMessage);
         }
 
         public IActionResult ProductsByCategoryPartial(int categoryId)
         {
             var products = viewProductsInCategoryUseCase.Execute(categoryId);
-
             return PartialView("_Products", products);
         }
 
