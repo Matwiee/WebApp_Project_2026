@@ -1,13 +1,20 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Project_2026_MMP.Models;
+using UseCases.CategoriesUseCases;
 
 namespace Project_2026_MMP.Controllers
 {
     public class CategoriesController : Controller
     {
+        private readonly IViewCategoriesUseCase viewCategoriesUseCase;
+
+        public CategoriesController(IViewCategoriesUseCase viewCategoriesUseCase) 
+        {
+            this.viewCategoriesUseCase = viewCategoriesUseCase;
+        }
         public IActionResult Index()
         {
-            var categories = CategoriesRepository.GetCategories();
+            var categories = viewCategoriesUseCase.Execute();
             return View(categories);
         }
 
