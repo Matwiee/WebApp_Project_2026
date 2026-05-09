@@ -1,17 +1,34 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Project_2026_MMP.Models;
+﻿using CoreBusiness;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using UseCases.CategoriesUseCases;
+using Project_2026_MMP.Models;
 
 namespace Project_2026_MMP.Controllers
 {
+    //[Authorize(Policy = "Inventory")]
     public class CategoriesController : Controller
     {
         private readonly IViewCategoriesUseCase viewCategoriesUseCase;
+        private readonly IViewSelectedCategoryUseCase viewSelectedCategoryUseCase;
+        private readonly IEditCategoryUseCase editCategoryUseCase;
+        private readonly IAddCategoryUseCase addCategoryUseCase;
+        private readonly IDeleteCategoryUseCase deleteCategoryUseCase;
 
-        public CategoriesController(IViewCategoriesUseCase viewCategoriesUseCase) 
+        public CategoriesController(
+            IViewCategoriesUseCase viewCategoriesUseCase,
+            IViewSelectedCategoryUseCase viewSelectedCategoryUseCase,
+            IEditCategoryUseCase editCategoryUseCase,
+            IAddCategoryUseCase addCategoryUseCase,
+            IDeleteCategoryUseCase deleteCategoryUseCase)
         {
             this.viewCategoriesUseCase = viewCategoriesUseCase;
+            this.viewSelectedCategoryUseCase = viewSelectedCategoryUseCase;
+            this.editCategoryUseCase = editCategoryUseCase;
+            this.addCategoryUseCase = addCategoryUseCase;
+            this.deleteCategoryUseCase = deleteCategoryUseCase;
         }
+
         public IActionResult Index()
         {
             var categories = viewCategoriesUseCase.Execute();
@@ -22,7 +39,7 @@ namespace Project_2026_MMP.Controllers
         {
             ViewBag.Action = "edit";
 
-            var category = CategoriesRepository.GetCategoryById(id.HasValue ? id.Value : 0);
+            var category = viewSelectedCategoryUseCase.Execute(id.HasValue ? id.Value : 0);
 
             return View(category);
         }
@@ -33,10 +50,9 @@ namespace Project_2026_MMP.Controllers
         {
             if (ModelState.IsValid)
             {
-                CategoriesRepository.UpdateCategory(category.CategoryId, category);
+                editCategoryUseCase.Execute(category.CategoryId, category);
                 return RedirectToAction(nameof(Index));
             }
-            
 
             ViewBag.Action = "edit";
             return View(category);
@@ -49,27 +65,25 @@ namespace Project_2026_MMP.Controllers
             return View();
         }
 
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Add(Category category)
         {
             if (ModelState.IsValid)
             {
-                CategoriesRepository.AddCategory(category);
+                addCategoryUseCase.Execute(category);
                 return RedirectToAction(nameof(Index));
             }
-
 
             ViewBag.Action = "add";
             return View(category);
         }
-        
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Delete(int categoryId)
         {
-            CategoriesRepository.DeleteCategory(categoryId);
+            deleteCategoryUseCase.Execute(categoryId);
             return RedirectToAction(nameof(Index));
         }
     }

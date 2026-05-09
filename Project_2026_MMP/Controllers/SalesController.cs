@@ -1,23 +1,44 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Project_2026_MMP.Models;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Project_2026_MMP.ViewModels;
+using UseCases;
+using UseCases.CategoriesUseCases;
+using UseCases.ProductsUseCases;
+using Project_2026_MMP.Models;
 
 namespace Project_2026_MMP.Controllers
 {
+    //[Authorize(Policy = "Cashiers")]
     public class SalesController : Controller
     {
+        private readonly IViewCategoriesUseCase viewCategoriesUseCase;
+        private readonly IViewSelectedProductUseCase viewSelectedProductUseCase;
+        private readonly ISellProductUseCase sellProductUseCase;
+        private readonly IViewProductsInCategoryUseCase viewProductsInCategoryUseCase;
+
+        public SalesController(IViewCategoriesUseCase viewCategoriesUseCase,
+            IViewSelectedProductUseCase viewSelectedProductUseCase,
+            ISellProductUseCase sellProductUseCase,
+            IViewProductsInCategoryUseCase viewProductsInCategoryUseCase)
+        {
+            this.viewCategoriesUseCase = viewCategoriesUseCase;
+            this.viewSelectedProductUseCase = viewSelectedProductUseCase;
+            this.sellProductUseCase = sellProductUseCase;
+            this.viewProductsInCategoryUseCase = viewProductsInCategoryUseCase;
+        }
+
         public IActionResult Index()
         {
             var salesViewModel = new SalesViewModel
             {
-                Categories = CategoriesRepository.GetCategories()
+                Categories = viewCategoriesUseCase.Execute()
             };
             return View(salesViewModel);
         }
 
         public IActionResult SellProductPartial(int productId)
         {
-            var product = ProductsRepository.GetProductById(productId);
+            var product = viewSelectedProductUseCase.Execute(productId);
             return PartialView("_SellProduct", product);
         }
 
@@ -27,32 +48,30 @@ namespace Project_2026_MMP.Controllers
         {
             if (ModelState.IsValid)
             {
-                //Sell the product
-
-                var prod = ProductsRepository.GetProductById(salesViewModel.SelectedProductId);
-                if (prod != null)
-                {
-                    TransactionsRepository.Add(
-                        "Cashier1",
-                        salesViewModel.SelectedProductId,
-                        prod.Name,
-                        prod.Price.HasValue ? prod.Price.Value : 0,
-                        prod.Quantity.HasValue ? prod.Quantity.Value : 0,
-                        salesViewModel.QuantityToSell);
-
-                    prod.Quantity -= salesViewModel.QuantityToSell;
-                    ProductsRepository.UpdateProduct(salesViewModel.SelectedProductId, prod);
-
-                }
+                // Sell the product
+                sellProductUseCase.Execute(
+                    "Cashier1",
+                    salesViewModel.SelectedProductId,
+                    salesViewModel.QuantityToSell);
             }
 
-            var product = ProductsRepository.GetProductById(salesViewModel.SelectedProductId);
-            salesViewModel.SelectedCategoryId = (product?.CategoryId == null) ? 0: product.CategoryId.Value;
-            salesViewModel.Categories = CategoriesRepository.GetCategories();
+            var product = viewSelectedProductUseCase.Execute(salesViewModel.SelectedProductId);
+            salesViewModel.SelectedCategoryId = (product?.CategoryId == null) ? 0 : product.CategoryId.Value;
+            salesViewModel.Categories = viewCategoriesUseCase.Execute();
 
             return View("Index", salesViewModel);
         }
+
+        public IActionResult ProductsByCategoryPartial(int categoryId)
+        {
+            var products = viewProductsInCategoryUseCase.Execute(categoryId);
+
+            return PartialView("_Products", products);
+        }
+
+        public IActionResult GetTransactionsPartial(string cashierName)
+        {
+            return ViewComponent("Transactions", new { cashierName = cashierName });
+        }
     }
-
-
 }

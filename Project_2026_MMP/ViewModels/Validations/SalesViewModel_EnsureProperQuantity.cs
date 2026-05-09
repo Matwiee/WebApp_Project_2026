@@ -1,5 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
-using Project_2026_MMP.Models;
+﻿using Project_2026_MMP.Models;
+using System.ComponentModel.DataAnnotations;
+using UseCases;
 
 namespace Project_2026_MMP.ViewModels.Validations
 {
@@ -17,15 +18,20 @@ namespace Project_2026_MMP.ViewModels.Validations
                 }
                 else
                 {
-                    var product = ProductsRepository.GetProductById(salesViewModel.SelectedProductId);
-                    if (product != null)
+                    var getProductByIdUseCase = validationContext.GetService(typeof(IViewSelectedProductUseCase)) as IViewSelectedProductUseCase;
+
+                    if (getProductByIdUseCase != null)
                     {
-                        if (product.Quantity < salesViewModel.QuantityToSell)
-                            return new ValidationResult($"{product.Name} only has {product.Quantity} left.");
-                    }
-                    else
-                    {
-                        return new ValidationResult("The selected product doesn't exist.");
+                        var product = getProductByIdUseCase.Execute(salesViewModel.SelectedProductId);
+                        if (product != null)
+                        {
+                            if (product.Quantity < salesViewModel.QuantityToSell)
+                                return new ValidationResult($"{product.Name} only has {product.Quantity} left. It is not enough.");
+                        }
+                        else
+                        {
+                            return new ValidationResult("The selected product doesn't exist.");
+                        }
                     }
                 }
             }

@@ -1,4 +1,4 @@
-﻿using Project_2026_MMP.Models;
+﻿using CoreBusiness;
 
 namespace Project_2026_MMP.ViewModels
 {

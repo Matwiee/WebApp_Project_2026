@@ -1,14 +1,21 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Project_2026_MMP.Models;
+using UseCases;
 
 namespace Project_2026_MMP.ViewComponents
 {
     [ViewComponent]
     public class TransactionsViewComponent : ViewComponent
     {
+        private readonly IGetTodayTransactionsUseCase getTodayTransactionsUseCase;
+
+        public TransactionsViewComponent(IGetTodayTransactionsUseCase getTodayTransactionsUseCase)
+        {
+            this.getTodayTransactionsUseCase = getTodayTransactionsUseCase;
+        }
+
         public IViewComponentResult Invoke(string userName)
         {
-            var transactions = TransactionsRepository.GetByDayAndCashier(userName, DateTime.Now);
+            var transactions = getTodayTransactionsUseCase.Execute(userName);
 
             return View(transactions);
         }
