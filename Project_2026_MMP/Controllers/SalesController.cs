@@ -8,7 +8,7 @@ using Project_2026_MMP.Models;
 
 namespace Project_2026_MMP.Controllers
 {
-    [Authorize]
+    [Authorize(Policy = "Cashiers")]
     public class SalesController : Controller
     {
         private readonly IViewCategoriesUseCase viewCategoriesUseCase;
@@ -48,8 +48,10 @@ namespace Project_2026_MMP.Controllers
         {
             if (ModelState.IsValid)
             {
+                var currentUserName = User.Identity?.Name ?? "Unknown";
+
                 sellProductUseCase.Execute(
-                    "Cashier1",
+                    currentUserName,
                     salesViewModel.SelectedProductId,
                     salesViewModel.QuantityToSell);
 

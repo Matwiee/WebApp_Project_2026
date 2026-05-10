@@ -33,6 +33,13 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.R
 builder.Services.AddRazorPages();
 builder.Services.AddControllersWithViews();
 
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("Inventory", p => p.RequireClaim("Position", "Inventory"));
+    options.AddPolicy("Cashiers", p => p.RequireClaim("Position", "Cashier"));
+
+});
+
 if (builder.Environment.IsEnvironment("QA"))
 {
     builder.Services.AddSingleton<ICategoryRepository, CategoriesInMemoryRepository>();
