@@ -18,6 +18,11 @@ if (builder.Environment.IsEnvironment("QA"))
     builder.WebHost.UseStaticWebAssets();
 }
 
+builder.Services.AddDbContext<AccountContext>(options =>
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("MarketManagment"));
+});
+
 builder.Services.AddDbContext<MarketContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("MarketManagment"));
