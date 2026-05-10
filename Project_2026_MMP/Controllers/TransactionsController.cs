@@ -6,7 +6,7 @@ using Project_2026_MMP.Models;
 
 namespace Project_2026_MMP.Controllers
 {
-    //[Authorize]
+    [Authorize]
     public class TransactionsController : Controller
     {
         private readonly ISearchTransactionsUseCase searchTransactionsUseCase;

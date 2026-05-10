@@ -30,6 +30,7 @@ builder.Services.AddDbContext<MarketContext>(options =>
 
 builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<AccountContext>();
 
+builder.Services.AddRazorPages();
 builder.Services.AddControllersWithViews();
 
 if (builder.Environment.IsEnvironment("QA"))
@@ -72,6 +73,7 @@ app.MapStaticAssets();
 app.UseAuthentication();
 app.UseAuthorization();
 
+app.MapRazorPages();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");

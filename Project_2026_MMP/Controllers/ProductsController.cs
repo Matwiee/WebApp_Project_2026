@@ -9,7 +9,7 @@ using UseCases.ProductsUseCases;
 
 namespace Project_2026_MMP.Controllers
 {
-    //[Authorize(Policy = "Inventory")]
+    [Authorize]
     public class ProductsController : Controller
     {
         private readonly IAddProductUseCase addProductUseCase;

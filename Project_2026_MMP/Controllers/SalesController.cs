@@ -8,6 +8,7 @@ using Project_2026_MMP.Models;
 
 namespace Project_2026_MMP.Controllers
 {
+    [Authorize]
     public class SalesController : Controller
     {
         private readonly IViewCategoriesUseCase viewCategoriesUseCase;

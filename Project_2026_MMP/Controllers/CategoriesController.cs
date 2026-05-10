@@ -6,7 +6,7 @@ using Project_2026_MMP.Models;
 
 namespace Project_2026_MMP.Controllers
 {
-    //[Authorize(Policy = "Inventory")]
+    [Authorize]
     public class CategoriesController : Controller
     {
         private readonly IViewCategoriesUseCase viewCategoriesUseCase;
