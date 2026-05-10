@@ -8,19 +8,37 @@ using UseCases.CategoriesUseCases;
 using UseCases.CategoriesUseCases.DataStorePluginInterfaces;
 using UseCases.DataStorePluginInterfaces;
 using UseCases.ProductsUseCases;
+using Microsoft.AspNetCore.Identity;
+using Project_2026_MMP.Data;
 
 var builder = WebApplication.CreateBuilder(args);
+
+if (builder.Environment.IsEnvironment("QA"))
+{
+    builder.WebHost.UseStaticWebAssets();
+}
 
 builder.Services.AddDbContext<MarketContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("MarketManagment"));
 });
 
+builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<AccountContext>();
+
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddSingleton<ICategoryRepository, CategoriesInMemoryRepository>();
-builder.Services.AddSingleton<IProductRepository, ProductsInMemoryRepository>();
-builder.Services.AddSingleton<ITransactionRepository, TransactionsInMemoryRepository>();
+if (builder.Environment.IsEnvironment("QA"))
+{
+    builder.Services.AddSingleton<ICategoryRepository, CategoriesInMemoryRepository>();
+    builder.Services.AddSingleton<IProductRepository, ProductsInMemoryRepository>();
+    builder.Services.AddSingleton<ITransactionRepository, TransactionsInMemoryRepository>();
+}
+else
+{
+    builder.Services.AddTransient<ICategoryRepository, CategorySQLRepository>();
+    builder.Services.AddTransient<IProductRepository, ProductSQLRepository>();
+    builder.Services.AddTransient<ITransactionRepository, TransactionSQLRepository>();
+}
 
 builder.Services.AddTransient<IViewCategoriesUseCase, ViewCategoriesUseCase>();
 builder.Services.AddTransient<IViewSelectedCategoryUseCase, ViewSelectedCategoryUseCase>();
