@@ -1,9 +1,70 @@
-﻿
-@section title {
-    <h1>Welcome to Home Page!</h1>
+﻿@model DashboardViewModel
+@{
+    ViewData["Title"] = "Dashboard";
 }
 
-<p>
-    This is our new home!
-</p>
-   
+<div class="container mt-4">
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <h1 class="brand-obsidian text-dark">OBSIDIAN <span class="text-green">STEM</span></h1>
+            <p class="lead text-muted">Management & Sales Overview</p>
+        </div>
+    </div>
+
+    <div class="row text-white">
+        <div class="col-md-3 mb-3">
+            <div class="card bg-dark shadow-sm border-0 h-100">
+                <div class="card-body py-4">
+                    <h6 class="text-uppercase small fw-bold mb-3">Daily Sales</h6>
+                    <h2 class="mb-0">@Model.DailySales.ToString("c")</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="card shadow-sm border-0 h-100" style="background-color: #73A942;">
+                <div class="card-body py-4">
+                    <h6 class="text-uppercase small fw-bold mb-3">Inventory Items</h6>
+                    <h2 class="mb-0">@Model.InventoryCount</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="card bg-dark shadow-sm border-0 h-100">
+                <div class="card-body py-4">
+                    <h6 class="text-uppercase small fw-bold mb-3">Categories</h6>
+                    <h2 class="mb-0">@Model.CategoryCount</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="card bg-secondary shadow-sm border-0 h-100">
+                <div class="card-body py-4">
+                    <h6 class="text-uppercase small fw-bold mb-3">Transactions</h6>
+                    <h2 class="mb-0">@Model.TransactionCount</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-md-8 mb-4">
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-white fw-bold">System Status</div>
+                <div class="card-body">
+                    <p class="card-text text-muted">All systems are operational. Database connected.</p>
+                    <a asp-controller="Sales" asp-action="Index" class="btn btn-primary">Start New Sale</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm border-0 bg-dark text-white text-center py-4">
+                <div class="card-body">
+                    <p class="mb-1 small text-muted">Logged in as:</p>
+                    <h6 class="text-green fw-bold">@User.Identity.Name</h6>
+                    <hr class="bg-secondary" />
+                    <a asp-area="Identity" asp-page="/Account/Manage/Index" class="btn btn-sm btn-outline-light">Settings</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

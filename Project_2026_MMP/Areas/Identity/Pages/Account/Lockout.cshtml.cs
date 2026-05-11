@@ -2,6 +2,8 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Project_2026_MMP.Areas.Identity.Pages.Account;
@@ -13,10 +15,31 @@ namespace Project_2026_MMP.Areas.Identity.Pages.Account;
 [AllowAnonymous]
 public class LockoutModel : PageModel
 {
-    /// <summary>
-    ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-    ///     directly from your code. This API may change or be removed in future releases.
-    /// </summary>
+    // 1. Declare the field
+    private readonly SignInManager<IdentityUser> _signInManager;
+
+    // 2. Inject it through the constructor
+    public LockoutModel(SignInManager<IdentityUser> signInManager)
+    {
+        _signInManager = signInManager;
+    }
+
+    public async Task<IActionResult> OnPost(string returnUrl = null)
+    {
+        await _signInManager.SignOutAsync();
+
+        TempData["Success"] = "Successfully signed out. Have a productive day!";
+
+        if (returnUrl != null)
+        {
+            return LocalRedirect(returnUrl);
+        }
+        else
+        {
+            return RedirectToPage();
+        }
+    }
+
     public void OnGet()
     {
     }

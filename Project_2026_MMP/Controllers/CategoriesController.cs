@@ -38,9 +38,7 @@ namespace Project_2026_MMP.Controllers
         public IActionResult Edit(int? id)
         {
             ViewBag.Action = "edit";
-
             var category = viewSelectedCategoryUseCase.Execute(id.HasValue ? id.Value : 0);
-
             return View(category);
         }
 
@@ -51,17 +49,18 @@ namespace Project_2026_MMP.Controllers
             if (ModelState.IsValid)
             {
                 editCategoryUseCase.Execute(category.CategoryId, category);
+                TempData["Success"] = $"Category '{category.Name}' has been updated.";
                 return RedirectToAction(nameof(Index));
             }
-
             ViewBag.Action = "edit";
             return View(category);
         }
 
+        /* --- THIS WAS MISSING --- */
+        // This handles the initial click of the 'Add' button to show the form
         public IActionResult Add()
         {
             ViewBag.Action = "add";
-
             return View();
         }
 
@@ -72,9 +71,9 @@ namespace Project_2026_MMP.Controllers
             if (ModelState.IsValid)
             {
                 addCategoryUseCase.Execute(category);
+                TempData["Success"] = $"New category '{category.Name}' was successfully added.";
                 return RedirectToAction(nameof(Index));
             }
-
             ViewBag.Action = "add";
             return View(category);
         }
@@ -84,6 +83,7 @@ namespace Project_2026_MMP.Controllers
         public IActionResult Delete(int categoryId)
         {
             deleteCategoryUseCase.Execute(categoryId);
+            TempData["Success"] = "The category was removed from the database.";
             return RedirectToAction(nameof(Index));
         }
     }

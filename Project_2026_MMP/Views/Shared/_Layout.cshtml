@@ -1,59 +1,78 @@
-﻿
-
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="Width=device-width, initial-scale=1.0" />
-    <title>Supermarket Managment</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Obsidian Stem</title>
     <link rel="stylesheet" href="~/lib/bootstrap/css/bootstrap.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Open+Sans:wght@400;700;800&family=Playfair+Display:wght@800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,800;1,800&family=Montserrat:wght@600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-dark bg-black border-bottom-green mb-3">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Supermarket</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
+                <button class="btn btn-menu d-flex flex-column align-items-center me-3" type="button" data-bs-toggle="offcanvas" data-bs-target="#gamestopMenu">
+                    <span class="navbar-toggler-icon" style="width: 1.5em; height: 1.5em;"></span>
+                    <span class="menu-text text-uppercase">Menu</span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="home" asp-action="index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="sales" asp-action="index">Sell</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="categories" asp-action="index">Categories</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="products" asp-action="index">Products</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="transactions" asp-action="index">Transactions</a>
-                        </li>
-                    </ul>
 
+                <a class="navbar-brand brand-obsidian" asp-area="" asp-controller="Home" asp-action="Index">
+                    OBSIDIAN <span class="text-green">STEM</span>
+                </a>
+
+                <div class="ms-auto">
                     <partial name="_LoginPartial" />
                 </div>
             </div>
         </nav>
     </header>
-    <div class="container">
-        <div class="pb-3">
-            @RenderSection("title", false)
-            <hr />
+
+    <div class="offcanvas offcanvas-start text-white" tabindex="-1" id="gamestopMenu" aria-labelledby="gamestopMenuLabel" style="background-color: #000;">
+        <div class="offcanvas-header border-bottom border-secondary">
+            <h5 class="offcanvas-title fw-bolder text-uppercase" id="gamestopMenuLabel" style="color: #73A942;">Menu</h5>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
-        <div>
-            @RenderBody()
+        <div class="offcanvas-body p-0">
+            <ul class="list-group list-group-flush sidebar-nav">
+                @* The CSS above handles the link colors now *@
+                <li class="list-group-item"><a class="nav-link fw-bold text-uppercase" asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                <li class="list-group-item"><a class="nav-link fw-bold text-uppercase" asp-area="" asp-controller="Home" asp-action="Sell">Sell</a></li>
+                <li class="list-group-item"><a class="nav-link fw-bold text-uppercase" asp-area="" asp-controller="Home" asp-action="Categories">Categories</a></li>
+                <li class="list-group-item"><a class="nav-link fw-bold text-uppercase" asp-area="" asp-controller="Home" asp-action="Products">Products</a></li>
+                <li class="list-group-item"><a class="nav-link fw-bold text-uppercase" asp-area="" asp-controller="Home" asp-action="Transactions">Transactions</a></li>
+            </ul>
         </div>
     </div>
-    <script src="https://code.jquery.com/jquery-3.7.0.min.js"
-            integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g="
-            crossorigin="anonymous"></script>
+
+    <div class="container mt-3">
+        @if (TempData["Success"] != null)
+        {
+            <div class="alert alert-success alert-dismissible fade show border-0 shadow-lg mb-4"
+                 role="alert"
+                 style="background-color: #ffffff; border-left: 6px solid #73A942 !important; color: #333;">
+                <div class="d-flex align-items-center">
+                    <i class="fa-solid fa-circle-check me-3" style="color: #73A942; font-size: 1.2rem;"></i>
+                    <div>
+                        <strong>System Update:</strong> @TempData["Success"]
+                    </div>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        }
+        @RenderSection("title", required: false)
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <script src="~/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

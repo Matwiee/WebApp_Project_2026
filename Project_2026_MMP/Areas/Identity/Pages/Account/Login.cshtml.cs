@@ -115,6 +115,7 @@ public class LoginModel : PageModel
             var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
             if (result.Succeeded)
             {
+                TempData["Success"] = $"Welcome back, {Input.Email}! Access granted.";
                 _logger.LogInformation("User logged in.");
                 return LocalRedirect(returnUrl);
             }
