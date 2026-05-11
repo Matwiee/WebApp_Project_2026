@@ -1,14 +1,17 @@
 ﻿using CoreBusiness;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UseCases.DataStorePluginInterfaces;
 
 namespace UseCases
 {
-    public class SearchTransactionsUseCase : ISearchTransactionsUseCase
+    // Define the interface right here if it doesn't exist elsewhere
+    public interface IViewTransactionsUseCase
+    {
+        IEnumerable<Transaction> Execute(string cashierName, DateTime startDate, DateTime endDate);
+    }
+
+    public class SearchTransactionsUseCase : ISearchTransactionsUseCase, IViewTransactionsUseCase
     {
         private readonly ITransactionRepository transactionRepository;
 
@@ -17,11 +20,7 @@ namespace UseCases
             this.transactionRepository = transactionRepository;
         }
 
-        public IEnumerable<Transaction> Execute(
-            string cashierName,
-            DateTime startDate,
-            DateTime endDate
-            )
+        public IEnumerable<Transaction> Execute(string cashierName, DateTime startDate, DateTime endDate)
         {
             return transactionRepository.Search(cashierName, startDate, endDate);
         }
