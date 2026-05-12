@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Project_2026_MMP.Migrations
 {
     [DbContext(typeof(AccountContext))]
-    partial class AccountContextModelSnapshot : ModelSnapshot
+    [Migration("20260512095828_AddGardenDetailsToProducts")]
+    partial class AddGardenDetailsToProducts
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -46,15 +49,6 @@ namespace Project_2026_MMP.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "11111111-ffff-ffff-ffff-ffffffffffff",
-                            ConcurrencyStamp = "SZTYWNY_STAMP_ROLI_123",
-                            Name = "Admin",
-                            NormalizedName = "ADMIN"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -105,15 +99,6 @@ namespace Project_2026_MMP.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("AspNetUserClaims", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 2,
-                            ClaimType = "position",
-                            ClaimValue = "Admin",
-                            UserId = "22222222-ffff-ffff-ffff-ffffffffffff"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
@@ -153,13 +138,6 @@ namespace Project_2026_MMP.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            UserId = "22222222-ffff-ffff-ffff-ffffffffffff",
-                            RoleId = "11111111-ffff-ffff-ffff-ffffffffffff"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -246,24 +224,6 @@ namespace Project_2026_MMP.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "22222222-ffff-ffff-ffff-ffffffffffff",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "SZTYWNY_STAMP_SZEFA_123",
-                            Email = "szef@flowershop.pl",
-                            EmailConfirmed = true,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "SZEF@FLOWERSHOP.PL",
-                            NormalizedUserName = "SZEF@FLOWERSHOP.PL",
-                            PasswordHash = "AQAAAAIAAYagAAAAEKKPdmOXA0Zpx5iE7fjtSl9hEedtzwcXWStqJFUV5WCTbXtaBe3EloTWYheYA/CBDa==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "TAJNY_STAMP_NOWEGO_SZEFA_123",
-                            TwoFactorEnabled = false,
-                            UserName = "szef@flowershop.pl"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

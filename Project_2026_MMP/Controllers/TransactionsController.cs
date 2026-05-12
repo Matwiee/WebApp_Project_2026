@@ -32,8 +32,6 @@ namespace Project_2026_MMP.Controllers
                 transactionsViewModel.EndDate);
 
             transactionsViewModel.Transactions = transactions;
-
-            // ADD THIS LINE
             TempData["Success"] = $"Found {transactions.Count()} transactions for the selected period.";
 
             return View("Index", transactionsViewModel);

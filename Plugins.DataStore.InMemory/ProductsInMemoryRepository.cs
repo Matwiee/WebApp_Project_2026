@@ -13,10 +13,16 @@ namespace Plugins.DataStore.InMemory
     {
         private List<Product> _products = new List<Product>()
         {
-            new Product { ProductId = 1, CategoryId = 1, Name = "Iced Tea", Quantity = 100, Price = 1.99 },
-            new Product { ProductId = 2, CategoryId = 1, Name = "Canada Dry", Quantity = 200, Price = 1.99 },
-            new Product { ProductId = 3, CategoryId = 2, Name = "Whole Wheat Bread", Quantity = 300, Price = 1.50 },
-            new Product { ProductId = 4, CategoryId = 2, Name = "White Bread", Quantity = 300, Price = 1.50 }
+            new Product { ProductId = 1, CategoryId = 1, Name = "Red Rose", Quantity = 150, Price = 2.99 },
+            new Product { ProductId = 2, CategoryId = 1, Name = "White Tulip", Quantity = 200, Price = 1.50 },
+            new Product { ProductId = 3, CategoryId = 1, Name = "Sunflower", Quantity = 80, Price = 3.50 },
+            new Product { ProductId = 4, CategoryId = 2, Name = "Elegant Orchid", Quantity = 40, Price = 24.99 },
+            new Product { ProductId = 5, CategoryId = 2, Name = "Monstera Deliciosa", Quantity = 30, Price = 35.00 },
+            new Product { ProductId = 6, CategoryId = 2, Name = "Snake Plant", Quantity = 50, Price = 18.50 },
+            new Product { ProductId = 7, CategoryId = 3, Name = "Birthday Joy Bouquet", Quantity = 20, Price = 45.00 },
+            new Product { ProductId = 8, CategoryId = 3, Name = "Premium Wedding Roses", Quantity = 10, Price = 89.99 },
+            new Product { ProductId = 9, CategoryId = 4, Name = "Ceramic Pot (Medium)", Quantity = 100, Price = 12.99 },
+            new Product { ProductId = 10, CategoryId = 4, Name = "Liquid Flower Fertilizer", Quantity = 80, Price = 5.99 }
         };
 
         private readonly ICategoryRepository categoryRepository;

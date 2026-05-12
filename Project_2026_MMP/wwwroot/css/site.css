@@ -255,6 +255,27 @@ input.form-control, select.form-control {
     margin: 0 !important;
 }
 
+/* --- SETTINGS BUTTON VISIBILITY FIX --- */
+.card .btn-outline-dark,
+.card .btn-sm {
+    background-color: #1a1a1a !important; /* Obsidian Black */
+    color: #ffffff !important; /* White text for visibility */
+    border: 2px solid #1a1a1a !important;
+    border-radius: 0px !important; /* Sharp corners */
+    font-weight: 800 !important;
+    text-transform: uppercase;
+    padding: 8px 15px !important;
+    transition: all 0.3s ease;
+    opacity: 1 !important; /* Ensure it's not transparent */
+    display: inline-block;
+}
+
+    .card .btn-outline-dark:hover {
+        background-color: #73A942 !important; /* Brand Green on hover */
+        border-color: #73A942 !important;
+        color: #000000 !important; /* Black text on green hover */
+    }
+
 /* Specific accent for the green inventory card if you want to keep it */
 .bg-inventory {
     background-color: #73A942 !important;

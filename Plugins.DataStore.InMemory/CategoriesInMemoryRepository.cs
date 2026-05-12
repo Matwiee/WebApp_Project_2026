@@ -5,11 +5,12 @@ namespace Plugins.DataStore.InMemory
 {
     public class CategoriesInMemoryRepository : ICategoryRepository
     {
-        private  List<Category> _categories = new List<Category>()
+        private List<Category> _categories = new List<Category>()
         {
-            new Category { CategoryId = 1, Name = "Beverage", Description = "Beverage" },
-            new Category { CategoryId = 2, Name = "Bakery", Description = "Bakery" },
-            new Category { CategoryId = 3, Name = "Meat", Description = "Meat" }
+            new Category { CategoryId = 1, Name = "Cut Flowers", Description = "Fresh cut flowers for any occasion" },
+            new Category { CategoryId = 2, Name = "Potted Plants", Description = "Beautiful indoor and outdoor potted plants" },
+            new Category { CategoryId = 3, Name = "Bouquets", Description = "Pre-arranged floral bouquets crafted by our florists" },
+            new Category { CategoryId = 4, Name = "Accessories", Description = "Pots, fertilizers, and gardening tools" }
         };
 
         public  void AddCategory(Category category)

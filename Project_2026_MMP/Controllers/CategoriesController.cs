@@ -56,8 +56,6 @@ namespace Project_2026_MMP.Controllers
             return View(category);
         }
 
-        /* --- THIS WAS MISSING --- */
-        // This handles the initial click of the 'Add' button to show the form
         public IActionResult Add()
         {
             ViewBag.Action = "add";

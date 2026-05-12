@@ -5,7 +5,6 @@ using UseCases.DataStorePluginInterfaces;
 
 namespace UseCases
 {
-    // Define the interface right here if it doesn't exist elsewhere
     public interface IViewTransactionsUseCase
     {
         IEnumerable<Transaction> Execute(string cashierName, DateTime startDate, DateTime endDate);

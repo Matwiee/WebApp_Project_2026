@@ -31,19 +31,15 @@ namespace Project_2026_MMP.Controllers
         {
             var salesViewModel = new SalesViewModel
             {
-                // Use the correct variable name from your constructor
                 Categories = viewCategoriesUseCase.Execute()
             };
 
-            // This loads your Index.cshtml (the code you just shared)
             return View(salesViewModel);
         }
 
         public IActionResult SellProductPartial(int productId)
         {
             var product = viewSelectedProductUseCase.Execute(productId);
-
-            // This loads ONLY the name and price into #productDetailPartial
             return PartialView("_SellProduct", product);
         }
 

@@ -12,8 +12,7 @@ using Project_2026_MMP.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// FIX 1: Allow Static Web Assets in Development AND QA
-// This ensures CSS from class libraries (like UseCases or Plugins) loads correctly
+
 if (builder.Environment.IsDevelopment() || builder.Environment.IsEnvironment("QA"))
 {
     builder.WebHost.UseStaticWebAssets();
@@ -88,7 +87,6 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-// FIX 2: UseStaticFiles is safer than MapStaticAssets for standard CSS/JS setups
 app.UseStaticFiles();
 
 app.UseRouting();

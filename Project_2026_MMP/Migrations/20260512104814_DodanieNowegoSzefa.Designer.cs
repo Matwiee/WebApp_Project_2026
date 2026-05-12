@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Project_2026_MMP.Migrations
 {
     [DbContext(typeof(AccountContext))]
-    partial class AccountContextModelSnapshot : ModelSnapshot
+    [Migration("20260512104814_DodanieNowegoSzefa")]
+    partial class DodanieNowegoSzefa
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -51,7 +54,6 @@ namespace Project_2026_MMP.Migrations
                         new
                         {
                             Id = "11111111-ffff-ffff-ffff-ffffffffffff",
-                            ConcurrencyStamp = "SZTYWNY_STAMP_ROLI_123",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -109,10 +111,10 @@ namespace Project_2026_MMP.Migrations
                     b.HasData(
                         new
                         {
-                            Id = 2,
+                            Id = 1,
                             ClaimType = "position",
                             ClaimValue = "Admin",
-                            UserId = "22222222-ffff-ffff-ffff-ffffffffffff"
+                            UserId = "00000000-ffff-ffff-ffff-ffffffffffff"
                         });
                 });
 
@@ -157,7 +159,7 @@ namespace Project_2026_MMP.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "22222222-ffff-ffff-ffff-ffffffffffff",
+                            UserId = "00000000-ffff-ffff-ffff-ffffffffffff",
                             RoleId = "11111111-ffff-ffff-ffff-ffffffffffff"
                         });
                 });
@@ -250,19 +252,19 @@ namespace Project_2026_MMP.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "22222222-ffff-ffff-ffff-ffffffffffff",
+                            Id = "00000000-ffff-ffff-ffff-ffffffffffff",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "SZTYWNY_STAMP_SZEFA_123",
-                            Email = "szef@flowershop.pl",
+                            ConcurrencyStamp = "1bbb73d9-6f8e-45bf-86a7-191df7f423cc",
+                            Email = "admin@flowershop.pl",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
-                            NormalizedEmail = "SZEF@FLOWERSHOP.PL",
-                            NormalizedUserName = "SZEF@FLOWERSHOP.PL",
-                            PasswordHash = "AQAAAAIAAYagAAAAEKKPdmOXA0Zpx5iE7fjtSl9hEedtzwcXWStqJFUV5WCTbXtaBe3EloTWYheYA/CBDa==",
+                            NormalizedEmail = "ADMIN@FLOWERSHOP.PL",
+                            NormalizedUserName = "ADMIN@FLOWERSHOP.PL",
+                            PasswordHash = "AQAAAAIAAYagAAAAEChnLDB0tHz8r/kXQg9/GUQPdMSl79Q6RGZnVQr67kk38XxruEZ74rab9rPdGLeZkA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "TAJNY_STAMP_NOWEGO_SZEFA_123",
+                            SecurityStamp = "bb8ea444-8945-40b5-947a-eb7aef78d1de",
                             TwoFactorEnabled = false,
-                            UserName = "szef@flowershop.pl"
+                            UserName = "admin@flowershop.pl"
                         });
                 });
 

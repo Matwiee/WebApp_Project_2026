@@ -2,7 +2,6 @@
 @model LoginModel
 <h1 class="mb-5">@ViewData["Title"]</h1>
 
-@* --- ADD THIS SECTION HERE --- *@
 @if (Model.ReturnUrl != null && Model.ReturnUrl.Contains("Home"))
 {
     <div class="alert alert-warning border-0 rounded-0 mb-4" style="border-left: 5px solid #73A942 !important; background-color: #f8f9fa;">
@@ -10,7 +9,6 @@
         <p class="small mb-0" style="color: #666;">You must be signed in to access the management dashboard or perform transactions.</p>
     </div>
 }
-@* ------------------------------ *@
 
 <div class="row">
     <div class="col-md-5">

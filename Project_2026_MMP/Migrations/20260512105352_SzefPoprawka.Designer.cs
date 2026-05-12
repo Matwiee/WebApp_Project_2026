@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Project_2026_MMP.Migrations
 {
     [DbContext(typeof(AccountContext))]
-    partial class AccountContextModelSnapshot : ModelSnapshot
+    [Migration("20260512105352_SzefPoprawka")]
+    partial class SzefPoprawka
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -50,7 +53,7 @@ namespace Project_2026_MMP.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "11111111-ffff-ffff-ffff-ffffffffffff",
+                            Id = "926BDC2F-0074-4B27-97BB-1696587B804F",
                             ConcurrencyStamp = "SZTYWNY_STAMP_ROLI_123",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
@@ -158,7 +161,7 @@ namespace Project_2026_MMP.Migrations
                         new
                         {
                             UserId = "22222222-ffff-ffff-ffff-ffffffffffff",
-                            RoleId = "11111111-ffff-ffff-ffff-ffffffffffff"
+                            RoleId = "926BDC2F-0074-4B27-97BB-1696587B804F"
                         });
                 });
 

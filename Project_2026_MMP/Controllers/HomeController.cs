@@ -1,11 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Project_2026_MMP.Models;
-
-// FIXED: These must match the exact namespaces where your interfaces live
 using UseCases;
 using UseCases.CategoriesUseCases;
-using UseCases.ProductsUseCases; // Added this to fix CS0246 for IViewProductsUseCase
+using UseCases.ProductsUseCases;
 
 [Authorize]
 public class HomeController : Controller
@@ -31,7 +29,6 @@ public class HomeController : Controller
 
         var model = new DashboardViewModel
         {
-            // If 'transactions' is empty, these will be 0, causing the black boxes
             DailySales = transactions.Sum(x => x.SoldQty * x.Price),
             InventoryCount = _viewProductsUseCase.Execute().Count(),
             CategoryCount = _viewCategoriesUseCase.Execute().Count(),
