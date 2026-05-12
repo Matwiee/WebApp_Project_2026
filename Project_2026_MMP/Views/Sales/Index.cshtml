@@ -1,0 +1,100 @@
+﻿@using CoreBusiness
+@model Project_2026_MMP.ViewModels.SalesViewModel
+
+@section title {
+    <div class="row align-items-center">
+        <div class="col-7"><h3 style="font-weight: bold; text-transform: uppercase;">Cashier's Console</h3></div>
+        <div class="col-2 text-end"><label for="cashier" style="font-weight: bold;">CASHIER:</label></div>
+        <div class="col-3" style="color: var(--primary-red); font-weight: bold; font-size: 1.2rem;">
+            @User?.Identity?.Name
+        </div>
+    </div>
+}
+
+<div class="row mt-3">
+    <div class="col-md-5">
+        <div class="text-danger fw-bold mb-2" id="validationSummary"></div>
+
+        <select asp-for="SelectedCategoryId" class="form-control mb-3">
+            <option value="">- SELECT CATEGORY -</option>
+            @if (Model.Categories != null && Model.Categories.Any())
+            {
+                @foreach (var cat in Model.Categories)
+                {
+                    <option value="@cat.CategoryId">@cat.Name</option>
+                }
+            }
+        </select>
+
+        <div id="productsPartial" class="mb-3"></div>
+        <div id="productDetailPartial" class="mb-3"></div>
+
+        <form method="post" asp-controller="sales" asp-action="sell" id="formSale" style="display:none;" class="p-3 border">
+            <input asp-for="SelectedProductId" type="hidden" />
+            <div class="form-group mb-3">
+                <label asp-for="QuantityToSell" class="fw-bold mb-1">QUANTITY</label>
+                <input asp-for="QuantityToSell" class="form-control" type="number" min="1" />
+            </div>
+            <div class="form-group d-grid">
+                <input type="submit" class="btn btn-primary btn-lg" value="COMPLETE SALE" />
+            </div>
+        </form>
+    </div>
+
+    <div class="col-md-7">
+        <div id="transactionsPartial" class="p-3 border h-100">
+            <h4 class="mb-3 border-bottom pb-2" style="font-weight: bold;">RECENT TRANSACTIONS</h4>
+            @await Component.InvokeAsync("Transactions", "Cashier1")
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(function () {
+            $("#QuantityToSell").val("");
+
+            $("#SelectedCategoryId").on("change", function () {
+                var categoryId = $(this).val();
+                if (categoryId > 0) {
+                    $("#productsPartial").load("/sales/ProductsByCategoryPartial", { categoryId: categoryId });
+                    $("#productDetailPartial").html("");
+                    $("#formSale").hide();
+                }
+            });
+
+            $("#productsPartial").on('click', '.product-row', function () {
+                $('.product-row').removeClass('highlight');
+                $(this).addClass('highlight');
+
+                var productId = $(this).attr('product-id');
+                $("#productDetailPartial").load("/sales/SellProductPartial", { productId: productId });
+
+                if (productId > 0) {
+                    $("#SelectedProductId").val(productId);
+                    $("#formSale").show();
+                }
+            });
+
+            $("#formSale").on("submit", function (e) {
+                e.preventDefault();
+                var form = $(this);
+
+                $.post(form.attr("action"), form.serialize())
+                    .done(function () {
+                        $("#transactionsPartial").load("/sales/GetTransactionsPartial?cashierName=Cashier1");
+                        var categoryId = $("#SelectedCategoryId").val();
+                        $("#productsPartial").load("/sales/ProductsByCategoryPartial", { categoryId: categoryId });
+
+                        $("#QuantityToSell").val("");
+                        $("#productDetailPartial").html("");
+                        form.hide();
+                        $("#validationSummary").text("");
+                    })
+                    .fail(function (xhr) {
+                        $("#validationSummary").text(xhr.responseText);
+                    });
+            });
+        });
+    </script>
+}

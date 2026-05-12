@@ -1,0 +1,327 @@
+﻿/* --- GLOBAL STYLES --- */
+body {
+    background-color: #ffffff;
+    color: #000000;
+    font-family: 'Open Sans', sans-serif;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Aggressive, Compact Headers */
+h1, h2, h3 {
+    font-weight: 800 !important;
+    text-transform: uppercase;
+    letter-spacing: -1px;
+}
+
+/* --- BRANDING: OBSIDIAN STEM --- */
+.brand-obsidian {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    color: #ffffff !important;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+.text-green {
+    color: #73A942 !important; /* Botanical Leaf Green */
+}
+
+/* --- SYNCHRONIZED NAVBAR (MENU & SIGN IN) --- */
+.btn-menu .menu-text,
+.navbar-nav .nav-link {
+    font-family: 'Open Sans', sans-serif !important;
+    font-size: 0.7rem !important;
+    font-weight: 800 !important; /* Heavy weight */
+    text-transform: uppercase !important;
+    letter-spacing: 1px !important;
+    color: #ffffff !important;
+    transition: color 0.3s ease;
+    padding: 0 !important;
+}
+
+    /* --- STANDOUT EMAIL DISPLAY --- */
+    .navbar-nav .nav-link[title="Manage"] {
+        font-size: 0.75rem !important;
+        font-weight: 800 !important; /* MAX BOLD */
+        color: rgba(255, 255, 255, 0.9) !important;
+        letter-spacing: 0px !important;
+        text-transform: none !important;
+        border-bottom: 1px solid rgba(115, 169, 66, 0.3);
+    }
+
+    /* Icon synchronization */
+    .btn-menu i, .btn-menu .bi,
+    .navbar-nav .nav-link i, .navbar-nav .nav-link .bi {
+        color: #ffffff !important;
+        font-size: 1.1rem !important;
+        display: block;
+        margin: 0 auto 2px auto;
+    }
+
+    /* Identical Hover Effect */
+    .btn-menu:hover,
+    .btn-menu:hover .menu-text,
+    .btn-menu:hover i,
+    .navbar-nav .nav-link:hover {
+        color: #73A942 !important; /* Brand green hover */
+    }
+
+/* --- SIDEBAR / OFFCANVAS: MIXED THEME --- */
+.offcanvas-header {
+    background-color: #000000 !important; /* Black Header */
+    border-bottom: 2px solid #73A942 !important;
+    padding: 1.2rem 1.5rem;
+}
+
+.offcanvas-title {
+    color: #73A942 !important;
+    font-weight: 800 !important;
+}
+
+.btn-close {
+    filter: invert(1) brightness(200%);
+}
+
+.offcanvas-body {
+    background-color: #ffffff !important; /* White Body */
+    padding: 0 !important;
+}
+
+.sidebar-nav .list-group-item {
+    background-color: #ffffff !important;
+    border-bottom: 1px solid #eeeeee !important;
+    padding: 1rem 1.5rem;
+}
+
+.sidebar-nav .nav-link {
+    color: #000000 !important;
+    font-weight: 800 !important;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+}
+
+    .sidebar-nav .nav-link:hover {
+        color: #73A942 !important;
+    }
+
+/* --- BUTTONS: SHARP & GREEN --- */
+.btn-primary,
+button[type="submit"].btn-primary,
+.manage-account .btn-primary {
+    background-color: #73A942 !important;
+    border-color: #73A942 !important;
+    border-radius: 0px !important; /* Sharp corners */
+    font-weight: 800 !important;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+}
+
+    .btn-primary:hover, .btn-primary:focus {
+        background-color: #5a8534 !important;
+        border-color: #5a8534 !important;
+        box-shadow: 0 0 12px rgba(115, 169, 66, 0.4) !important;
+    }
+
+.btn-outline-dark {
+    border-radius: 0px !important;
+    border: 2px solid #000000 !important;
+    font-weight: 800 !important;
+    text-transform: uppercase;
+}
+
+/* --- FORMS & INPUTS --- */
+input.form-control, select.form-control {
+    border-radius: 0px;
+    border: 2px solid #ced4da;
+    font-weight: 600;
+}
+
+    input.form-control:focus {
+        border-color: #73A942;
+        outline: 2px solid #73A942;
+    }
+
+/* --- TABLES --- */
+.table {
+    background-color: #ffffff;
+    margin-top: 1rem;
+    font-weight: 600;
+}
+
+    .table thead {
+        background-color: #f8f9fa;
+        text-transform: uppercase;
+        font-size: 0.75rem;
+    }
+
+/* --- PRINT OPTIMIZATION --- */
+@media print {
+    /* Kill the browser's default header/footer text (Supermarket Management) */
+    @page {
+        margin: 1cm;
+        size: auto;
+    }
+
+    /* Keep the Obsidian Stem branding visible and clean */
+    .brand-obsidian {
+        color: #000000 !important;
+        display: block !important;
+        margin-bottom: 20px;
+        font-size: 2.2rem !important;
+    }
+
+        .brand-obsidian .text-green {
+            color: #73A942 !important;
+        }
+
+    /* Hide the web-only navigation and buttons */
+    nav, .navbar, .btn-menu, .offcanvas, .sidebar-nav,
+    .btn, button, input, label, .alert {
+        display: none !important;
+    }
+
+    /* Clean report typography */
+    body {
+        font-family: 'Open Sans', sans-serif !important;
+        background-color: white !important;
+        color: black !important;
+    }
+
+    .container {
+        width: 100% !important;
+        max-width: none !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+}
+
+/* --- REFINED DASHBOARD CARDS --- */
+/* --- BRANDING FIXES --- */
+.brand-obsidian {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem; /* Increased to prevent cutting off */
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    color: #000000 !important; /* Change to BLACK for the body logo */
+    text-decoration: none;
+    text-transform: uppercase;
+    line-height: 1.1;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+/* Maintain WHITE logo only inside the BLACK navbar */
+.navbar .brand-obsidian {
+    color: #ffffff !important;
+    font-size: 1.8rem;
+}
+/* --- REFINED DASHBOARD CARDS --- */
+.card {
+    background-color: #ffffff !important;
+    border: 1px solid #eeeeee !important;
+    border-radius: 0px !important; /* Matches your sharp brand style */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05) !important;
+    margin-bottom: 1.5rem;
+    padding: 20px !important;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 140px;
+}
+
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 15px rgba(115, 169, 66, 0.2) !important;
+    }
+
+/* Force visibility for the labels (e.g., DAILY SALES) */
+.card-title {
+    color: #888888 !important;
+    font-size: 0.75rem !important;
+    font-weight: 800 !important;
+    text-transform: uppercase;
+    margin-bottom: 10px !important;
+}
+
+/* Force visibility for the big numbers (e.g., $5,382.00) */
+.card-text {
+    color: #000000 !important;
+    font-size: 2.2rem !important;
+    font-weight: 900 !important;
+    margin: 0 !important;
+}
+
+/* --- SETTINGS BUTTON VISIBILITY FIX --- */
+.card .btn-outline-dark,
+.card .btn-sm {
+    background-color: #1a1a1a !important; /* Obsidian Black */
+    color: #ffffff !important; /* White text for visibility */
+    border: 2px solid #1a1a1a !important;
+    border-radius: 0px !important; /* Sharp corners */
+    font-weight: 800 !important;
+    text-transform: uppercase;
+    padding: 8px 15px !important;
+    transition: all 0.3s ease;
+    opacity: 1 !important; /* Ensure it's not transparent */
+    display: inline-block;
+}
+
+    .card .btn-outline-dark:hover {
+        background-color: #73A942 !important; /* Brand Green on hover */
+        border-color: #73A942 !important;
+        color: #000000 !important; /* Black text on green hover */
+    }
+
+/* Specific accent for the green inventory card if you want to keep it */
+.bg-inventory {
+    background-color: #73A942 !important;
+}
+
+    .bg-inventory .card-title,
+    .bg-inventory .card-text {
+        color: #ffffff !important;
+    }
+
+.navbar {
+    padding-top: 1rem !important;
+    padding-bottom: 1rem !important;
+    min-height: 80px;
+}
+
+/* --- BRANDING FIXES --- */
+.brand-obsidian {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem; /* Increased to prevent cutting off */
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    color: #000000 !important; /* Change to BLACK for the body logo */
+    text-decoration: none;
+    text-transform: uppercase;
+    line-height: 1.1;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+/* Maintain WHITE logo only inside the BLACK navbar */
+.navbar .brand-obsidian {
+    color: #ffffff !important;
+    font-size: 1.8rem;
+}
+
+.dashboard-header {
+    margin-top: 2rem;
+    margin-bottom: 3rem;
+    border-left: 5px solid #73A942; /* Brand Green Accent line */
+    padding-left: 1.5rem;
+}
+
+    .dashboard-header h4 {
+        font-size: 0.9rem;
+        color: #888888;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+    }

@@ -1,0 +1,9 @@
+<Solution>
+  <Folder Name="/Plugins/">
+    <Project Path="Plugins.DataStore.InMemory/Plugins.DataStore.InMemory.csproj" Id="a787ac0a-0803-440c-9dbe-18a5707d7f81" />
+    <Project Path="Plugins/Plugins.DataStore.SQL/Plugins.DataStore.SQL.csproj" Id="88525503-3866-43e0-a8cf-8a7f442e8422" />
+  </Folder>
+  <Project Path="CoreBusiness/CoreBusiness.csproj" Id="f878687f-232d-44ab-bb6f-1f765ebe5b87" />
+  <Project Path="Project_2026_MMP/Project_2026_MMP.csproj" Id="7b1e8e5a-ed4c-45c7-a1d8-a64a98d527d2" />
+  <Project Path="UseCases/UseCases.csproj" Id="d4e598b2-587f-417a-8513-ee60c511c273" />
+</Solution>
