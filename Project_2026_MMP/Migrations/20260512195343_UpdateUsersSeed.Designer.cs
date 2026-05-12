@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Project_2026_MMP.Migrations
 {
     [DbContext(typeof(AccountContext))]
-    partial class AccountContextModelSnapshot : ModelSnapshot
+    [Migration("20260512195343_UpdateUsersSeed")]
+    partial class UpdateUsersSeed
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -100,14 +103,14 @@ namespace Project_2026_MMP.Migrations
                     b.HasData(
                         new
                         {
-                            Id = 100,
+                            Id = 1,
                             ClaimType = "Position",
                             ClaimValue = "Admin",
                             UserId = "11111111-1111-1111-1111-111111111111"
                         },
                         new
                         {
-                            Id = 101,
+                            Id = 2,
                             ClaimType = "Position",
                             ClaimValue = "Cashier",
                             UserId = "22222222-2222-2222-2222-222222222222"
@@ -243,13 +246,13 @@ namespace Project_2026_MMP.Migrations
                         {
                             Id = "11111111-1111-1111-1111-111111111111",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "30f46d80-1434-4926-a5f7-f28b625a6feb",
+                            ConcurrencyStamp = "e5101572-d8ab-4b6e-af28-e3e9080cd157",
                             Email = "admin@flowershop.pl",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@FLOWERSHOP.PL",
                             NormalizedUserName = "ADMIN@FLOWERSHOP.PL",
-                            PasswordHash = "AQAAAAIAAYagAAAAEFT8bR6emmnRN72+9xSDQMRefjT6HZ9JfJIfOYT/pl89/xL1uRGlfE8Y6d0piciwhw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAELZKV5DTsIhJHyHa+PvlHGs+hOv0KPB//JwVloIrm7E4+KVCn5SwXWjrhLHIZKv4Pw==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "STALY_STAMP_ADMIN_123",
                             TwoFactorEnabled = false,
@@ -259,15 +262,15 @@ namespace Project_2026_MMP.Migrations
                         {
                             Id = "22222222-2222-2222-2222-222222222222",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "32df5e51-060f-4d34-96c5-009f96098890",
+                            ConcurrencyStamp = "363be7ce-50ec-4194-bb55-3efc3ce5efbf",
                             Email = "cashier@flowershop.pl",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "CASHIER@FLOWERSHOP.PL",
                             NormalizedUserName = "CASHIER@FLOWERSHOP.PL",
-                            PasswordHash = "AQAAAAIAAYagAAAAECnVYVl9jDF3ZW86tOFHdXkVchhbDY1DH8fIeXp4pi//oXb1F14uoUP/81zN3971pA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEEdiEJsdsrPHUcx8+VWo7KN4/1IiIE6zH7s1N4MZZqxDfl4GwG0WSANIbCBpd6BgAQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "34a5940a-e65d-47f9-a074-bab75b244096",
+                            SecurityStamp = "STALY_STAMP_CASHIER_123",
                             TwoFactorEnabled = false,
                             UserName = "cashier@flowershop.pl"
                         });

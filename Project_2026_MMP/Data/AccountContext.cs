@@ -3,49 +3,75 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Project_2026_MMP.Data;
 
-public class AccountContext(DbContextOptions<AccountContext> options) : IdentityDbContext<ApplicationUser>(options)
+public class AccountContext : IdentityDbContext<ApplicationUser>
 {
+    public AccountContext(DbContextOptions<AccountContext> options) : base(options)
+    {
+    }
+
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        optionsBuilder.ConfigureWarnings(w => w.Ignore(Microsoft.EntityFrameworkCore.Diagnostics.RelationalEventId.PendingModelChangesWarning));
+    }
+
     protected override void OnModelCreating(ModelBuilder builder)
     {
+
+
         base.OnModelCreating(builder);
 
-        string newAdminId = "22222222-ffff-ffff-ffff-ffffffffffff";
-        string roleId = "11111111-ffff-ffff-ffff-ffffffffffff";
+        
+        string adminId = "11111111-1111-1111-1111-111111111111";
+        string cashierId = "22222222-2222-2222-2222-222222222222";
 
-        builder.Entity<IdentityRole>().HasData(new IdentityRole
-        {
-            Id = roleId,
-            Name = "Admin",
-            NormalizedName = "ADMIN",
-            ConcurrencyStamp = "SZTYWNY_STAMP_ROLI_123" 
-        });
+        var hasher = new PasswordHasher<ApplicationUser>();
 
-        builder.Entity<ApplicationUser>().HasData(new ApplicationUser
+        
+        var adminUser = new ApplicationUser
         {
-            Id = newAdminId,
-            UserName = "szef@flowershop.pl",
-            NormalizedUserName = "SZEF@FLOWERSHOP.PL",
-            Email = "szef@flowershop.pl",
-            NormalizedEmail = "SZEF@FLOWERSHOP.PL",
+            Id = adminId,
+            UserName = "admin@flowershop.pl",
+            NormalizedUserName = "ADMIN@FLOWERSHOP.PL",
+            Email = "admin@flowershop.pl",
+            NormalizedEmail = "ADMIN@FLOWERSHOP.PL",
             EmailConfirmed = true,
-            PasswordHash = "AQAAAAIAAYagAAAAEKKPdmOXA0Zpx5iE7fjtSl9hEedtzwcXWStqJFUV5WCTbXtaBe3EloTWYheYA/CBDa==",
-            SecurityStamp = "TAJNY_STAMP_NOWEGO_SZEFA_123",
-            ConcurrencyStamp = "SZTYWNY_STAMP_SZEFA_123"
-        });
+            SecurityStamp = "STALY_STAMP_ADMIN_123"
+        };
+        adminUser.PasswordHash = hasher.HashPassword(adminUser, "Qazwsx123,");
 
-        builder.Entity<IdentityUserRole<string>>().HasData(new IdentityUserRole<string>
+        
+        var cashierUser = new ApplicationUser
         {
-            RoleId = roleId,
-            UserId = newAdminId
-        });
+            Id = cashierId,
+            UserName = "cashier@flowershop.pl",
+            NormalizedUserName = "CASHIER@FLOWERSHOP.PL",
+            Email = "cashier@flowershop.pl",
+            NormalizedEmail = "CASHIER@FLOWERSHOP.PL",
+            EmailConfirmed = true,
+            SecurityStamp = Guid.NewGuid().ToString(),
+            ConcurrencyStamp = Guid.NewGuid().ToString()
+        };
+        cashierUser.PasswordHash = hasher.HashPassword(cashierUser, "Qazwsx123,");
 
+       
+        builder.Entity<ApplicationUser>().HasData(adminUser, cashierUser);
 
-        builder.Entity<IdentityUserClaim<string>>().HasData(new IdentityUserClaim<string>
-        {
-            Id = 2,
-            UserId = newAdminId,
-            ClaimType = "position",
-            ClaimValue = "Admin"
-        });
+        
+        builder.Entity<IdentityUserClaim<string>>().HasData(
+            new IdentityUserClaim<string>
+            {
+                Id = 100,
+                UserId = adminId,
+                ClaimType = "Position",
+                ClaimValue = "Admin"
+            },
+            new IdentityUserClaim<string>
+            {
+                Id = 101,
+                UserId = cashierId,
+                ClaimType = "Position",
+                ClaimValue = "Cashier"
+            }
+        );
     }
 }
